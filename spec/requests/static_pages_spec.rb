@@ -24,6 +24,15 @@ describe "Static pages" do
     it { should have_title(full_title(page_title)) }
   end
 
+  describe "events page" do
+    before { visit events_path }
+
+    let(:heading)       { "Events" }
+    let(:page_title )   { "Events" }
+
+    it_should_behave_like "all static pages"
+  end
+
   describe "Home page" do
     before { visit root_path }
     let(:heading)    { 'Announciator' }
