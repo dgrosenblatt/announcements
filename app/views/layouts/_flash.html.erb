@@ -1,0 +1,5 @@
+<% flash.each do |status, msg| %>
+	<div class="alert alert-<%= status %> alert-dismissable"><%= msg %>
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	</div>
+<% end %>

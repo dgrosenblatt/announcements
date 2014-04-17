@@ -1,0 +1,17 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+	<aside class="span4 offset1">
+		<section>
+			<h1><%= @user.name %></h1>
+
+			<% if @user.email.blank? %>
+				<h2><%= "Of unknown origin." %></h2>
+			<% else %>
+				<h2><%= @user.email %> </h2>
+				<%= gravatar_for @user %>
+			<% end %>
+
+			
+		</section>
+	</aside>
+</div>
