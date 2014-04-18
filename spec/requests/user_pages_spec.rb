@@ -41,6 +41,7 @@ describe "User pages" do
 
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
+        expect(page).to have_content("Welcome")
       end
     end
   end

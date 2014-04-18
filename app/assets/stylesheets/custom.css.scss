@@ -68,7 +68,7 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #000;
+  color: #eaeaea;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -110,12 +110,16 @@ footer {
 
 .popular {
   background-color: #97daab;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 /* sidebar */
 
 aside {
   section {
+    margin-left:5%;
+    margin-right: 5%;
     padding: 10px 0;
     border: 1px solid $grayMediumLight;
     border-radius: 2px;
@@ -152,9 +156,21 @@ aside {
 /* forms */
 
 input, textarea, select, .uneditable-input {
+  display:block;
   border: 1px solid #bbb;
-  width: 100%;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 15px;
+  @include box_sizing;
+}
+
+label, input.signup {
+  display:block;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
   @include box_sizing;
 }
 
@@ -163,15 +179,8 @@ input {
 }
 
 #error_explanation {
-  color: #f00;
-  ul {
-    list-style: none;
-    margin: 0 0 18px 0;
-  }
-}
-
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
