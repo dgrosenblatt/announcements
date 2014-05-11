@@ -35,7 +35,7 @@ describe "Static pages" do
 
   describe "Home page" do
     before { visit root_path }
-    let(:heading)    { 'Announciator' }
+    let(:heading)    { 'Influencr' }
     let(:page_title) { '' }
 
     it { should have_content("paying attention")}

@@ -1,0 +1,17 @@
+<% provide(:title, "All Users") %>
+
+<h1>All Users</h1>
+
+<% if current_user.admin? %>
+	<h2>Total Users: <%= @count %></h2>
+<% end %>
+
+<%= will_paginate %>
+
+<ul class="users">
+	<% @users.each do |user| %>
+		<%= render user %>
+	<% end %>
+</ul>
+
+<%= will_paginate %>
