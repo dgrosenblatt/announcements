@@ -76,6 +76,32 @@ describe "User pages" do
 
     it { should have_content('Sign up') }
     it { should have_title(full_title('Sign up')) }
+
+    describe "as signed in user" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      describe "visiting the Signup page" do
+        before do
+          sign_in user, no_capybara: true
+          get signup_path
+        end
+
+        specify { expect(response).to redirect_to(root_url) }
+      end
+
+      describe "submitting directly to the Users#create action" do
+        let(:params) do
+          { user: { name: "SecondAccount", password: "qwer1234", password_confirmation: "qwer1234" } }
+        end
+
+        before do
+          sign_in user, no_capybara: true
+          post users_path, params
+        end
+
+        specify { expect(response).to redirect_to(root_url) }
+      end
+    end
   end
 
   describe "signup" do
@@ -123,6 +149,18 @@ describe "User pages" do
     before do
       sign_in user
       visit edit_user_path(user)
+    end
+
+    describe "verboten attributes" do
+      let (:params) { { user: { admin: true, password: user.password, password_confirmation: user.password } } }
+
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+
+      specify { expect(user.reload).not_to be_admin }
+
     end
 
     describe "page" do

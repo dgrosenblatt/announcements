@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :signed_out_user, only: [:new, :create]
   before_action :signed_in_user, only: [:edit, :update, :index, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
@@ -40,9 +41,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "Deleted."
-    redirect_to users_path
+    @user = User.find(params[:id])
+    if @user == current_user
+      redirect_to root_url
+    else
+      @user.destroy
+      flash[:success] = "Deleted."
+      redirect_to users_path
+    end
   end
 
 
@@ -54,6 +60,13 @@ class UsersController < ApplicationController
     end
 
     #Before filters
+
+    def signed_out_user
+      if signed_in?
+        redirect_to root_url
+      end
+    end
+
     def signed_in_user
       if !signed_in?
         flash[:info] = "Please sign in."

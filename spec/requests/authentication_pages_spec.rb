@@ -22,6 +22,11 @@ describe "Authentication" do
 		it { should have_title("Sign in") }
 		it { should have_selector("div.alert.alert-danger.alert-dismissable") }
 
+		it { should_not have_link("Sign out", href: signout_path) }
+		it { should_not have_link("Profile") }
+		it { should_not have_link("Settings") }
+		it { should_not have_link("Users", href: users_path) }
+
 		describe "visit another page after invalid sign in" do
 			before { visit root_path }
 			it { should_not have_selector("div.alert.alert-danger.alert-dismissable") }
@@ -95,6 +100,16 @@ describe "Authentication" do
 			end
 		end
 
+		describe "as an admin user" do
+			let(:admin) { FactoryGirl.create(:admin) }
+			describe "deleting self with DELETE request to Users#destroy action" do
+				before do
+					sign_in admin, no_capybara: true
+					delete user_path(admin)
+				end
+				specify { expect(response).to redirect_to(root_url) }
+			end
+		end
 
 	    describe "as non-admin user" do
 	      let(:user) { FactoryGirl.create(:user) }
